@@ -14,6 +14,30 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 
+//configuration des routes
+
+
+
+app.
+
+//initialisetion page inscription 
+app.get('/', (req, res)=>{
+    res.sendFile(__dirname + "/inscription.html");
+});
+
+
+
+//initialisation page success
+app.post('/success.html', (req, res)=>{
+
+});
+
+
+// initialisation page echec
+app.post('/echec', (req, res)=>{
+    
+});
+
 
 
 //serveur enregistrer sur localhost 3000.
@@ -22,3 +46,4 @@ app.listen(3000, ()=>{
     console.log('server started');
     
 });
+
