@@ -8,21 +8,21 @@
     <title>Newsletter</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
   </head>
 
 
   <body class="text-center">
 
-    <form class="form-signin">
+    <form action="/" class="form-signin" method="POST">
         <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Inscris-toi a ma Newsletter</h1>
 
-        <input type="text" id="inputPassword" class="form-control top" placeholder="Prénom" required>
-        <input type="text" id="inputPassword" class="form-control middle" placeholder="Nom" required>
-        <input type="email" id="inputEmail" class="form-control bottom" placeholder="Adresse email" required autofocus>
+        <input type="text" name="firstName" id="inputPassword" class="form-control top " placeholder="Prénom" required>
+        <input type="text" name="name" id="inputPassword" class="form-control middle " placeholder="Nom" required>
+        <input type="email" name="mail" id="inputEmail" class="form-control bottom " placeholder="Adresse email" required autofocus>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Inscris-toi</button>
+        <button class="btn btn-lg btn-primary btn-block"  type="submit">Inscris-toi</button>
         <p class="mt-5 mb-3 text-muted">&copy; Jeffulljs 2019</p>
     </form>
 
