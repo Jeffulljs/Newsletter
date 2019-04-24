@@ -14,9 +14,14 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-//configuration des routes
+
+//permet de lire les fichiers css, images
 
 app.use(express.static('public'));
+
+
+//configuration des routes
+
 
 //initialisetion page inscription 
 app.get('/', (req, res)=>{
@@ -35,10 +40,39 @@ app.post('/', (req,res)=>{
     let mail = req.body.mail;
     console.log(mail);
 
-       
-   // request(option, (err, res, body)=>{
-     //  res.send();
-   // });
+    let data = {
+        members:[
+          {
+            "email_address": "email",
+            "status":"subscribed"
+          }    
+        ]
+    };
+
+    console.log(data);  
+    
+
+    let jsonData = JSON.stringify(data);
+    console.log(jsonData);
+    
+
+    const option = {
+        url:'https://us20.api.mailchimp.com/3.0/lists/afc5baef2f',
+        method:'POST', 
+        headers: {
+            'Authorization': "jeffulljs aeed9438f5d02fda3ce2a7f6ab3450e5-us20"
+        },
+        body: jsonData
+    };
+    
+
+   request(option, (error, response, body)=>{
+       if (error){
+        console.log(error);     
+       } else{
+        console.log(response.statusCode);      
+       }
+    });
 });
 
 
@@ -61,4 +95,9 @@ app.listen(3000, ()=>{
     
 });
 
-//aeed9438f5d02fda3ce2a7f6ab3450e5-us20
+//list id mailchimp qui va permettre d'identifier la liste d'abonner a ajouter ou supprimer
+//c065340f63
+
+
+//API KEY
+// aeed9438f5d02fda3ce2a7f6ab3450e5-us20
