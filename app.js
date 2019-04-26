@@ -25,7 +25,7 @@ app.use(express.static('public'));
 
 //initialisetion page inscription 
 app.get('/', (req, res)=>{
-    res.sendFile(__dirname + "/inscription.html");
+    res.sendFile(__dirname + '/inscription.html');
 });
 
 
@@ -37,19 +37,24 @@ app.post('/', (req,res)=>{
     let name = req.body.name;
     console.log(name);
     
-    let mail = req.body.mail;
-    console.log(mail);
+    let email = req.body.mail;
+    console.log(email);
 
+//Parametre demander par l'api mailchimp
     let data = {
         members:[
           {
-            "email_address": "email",
-            "status":"subscribed"
-          }    
+            email_address: email,
+            status:"subscribed",
+            merge_fields:{
+                FNAME:firstName,
+                LNAME:name
+            }   
+          } 
         ]
     };
 
-    console.log(data);  
+    console.log(data);
     
 
     let jsonData = JSON.stringify(data);
@@ -60,37 +65,40 @@ app.post('/', (req,res)=>{
         url:'https://us20.api.mailchimp.com/3.0/lists/afc5baef2f',
         method:'POST', 
         headers: {
-            'Authorization': "jeffulljs aeed9438f5d02fda3ce2a7f6ab3450e5-us20"
+            'Authorization': "jeffulljs c378f2676986c26efcdea80885d5708d-us20"
         },
         body: jsonData
     };
     
+    //initialisation page success + echec.
 
    request(option, (error, response, body)=>{
        if (error){
-        console.log(error);     
+
+        res.sendFile(__dirname + '/echec.html');  
+
+       } else if(response.statusCode === 200){
+
+        res.sendFile(__dirname + '/success.html'); 
+
        } else{
-        console.log(response.statusCode);      
+
+        res.sendFile(__dirname + '/echec.html');       
        }
+       
     });
 });
 
+// redirection de la page echec en cas d'erreur
 
-//initialisation page success
-app.post('/success.html', (req, res)=>{
-
-});
-
-
-// initialisation page echec
 app.post('/echec', (req, res)=>{
-    
+    res.redirect('/');
 });
 
 
-//serveur enregistrer sur localhost 3000.
+//Port dynamique de Heroku.
 
-app.listen(3000, ()=>{
+app.listen(process.env.PORT || 3000, ()=>{
     console.log('server started');
     
 });
@@ -99,5 +107,7 @@ app.listen(3000, ()=>{
 //c065340f63
 
 
-//API KEY
+//API KEY demo
 // aeed9438f5d02fda3ce2a7f6ab3450e5-us20
+
+//c378f2676986c26efcdea80885d5708d-us20
